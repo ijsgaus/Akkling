@@ -22,8 +22,8 @@ module Flow =
     /// Recover allows to send last element on failure and gracefully complete the stream
     /// Since the underlying failure signal onError arrives out-of-band, it might jump over existing elements.
     /// This stage can recover the failure signal, but not the skipped elements, which will be dropped.
-    let recover (fn: exn -> 'out option) (flow: Flow<'inp, 'out, 'mat>) : Flow<'inp, 'out option, 'mat> =
-        FlowOperations.Recover(flow, Func<exn, _>(fn >> toCsOption)).Select(Func<_,_>(ofCsOption))
+    let recover (fn: exn -> 'out option) (flow: Flow<'inp, 'out, 'mat>) : Flow<'inp, 'out, 'mat> =
+        FlowOperations.Recover(flow, Func<exn, _>(fn >> toCsOption)) //.Select(Func<_,_>(ofCsOption))
 
     /// RecoverWith allows to switch to alternative Source on flow failure. It will stay in effect after
     /// a failure has been recovered so that each time there is a failure it is fed into the <paramref name="partialFunc"/> and a new

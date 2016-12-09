@@ -18,7 +18,10 @@ module Prolog =
         | Some v -> Akka.Streams.Util.Option v
         | None -> Akka.Streams.Util.Option.None
 
-    let inline internal ofCsOption (res: Akka.Streams.Util.Option<_>) = if res.HasValue then Some res.Value else None
+    let inline internal ofCsOption (res: Akka.Streams.Util.Option<_>)  = 
+        if res.HasValue then 
+            Some res.Value
+        else None
 
     type Akka.Streams.ISinkQueue<'t> with
         member x.AsyncPull() : Async<'t option> = 
